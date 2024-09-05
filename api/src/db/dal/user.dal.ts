@@ -1,11 +1,11 @@
 import log from "../../logger";
-import User, { UserInput, UserOutput } from "../models/user.model";
+import User, { UserInput } from "../models/user.model";
 
 export const createUser = async (
   payload: UserInput
-): Promise<UserOutput | undefined> => {
+): Promise<User | undefined> => {
   try {
-    const newUser: UserOutput = await User.create(payload);
+    const newUser: User = await User.create(payload);
     return newUser;
   } catch (error: any) {
     console.error(error);

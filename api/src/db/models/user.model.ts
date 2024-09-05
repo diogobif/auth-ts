@@ -16,10 +16,6 @@ export interface UserAtttributes {
 }
 
 export interface UserInput extends Optional<UserAtttributes, "id"> {}
-export interface UserOutput extends Required<UserAtttributes> {
-  parseToJson(): any;
-  comparePasswords(candidatePassword: string): Promise<boolean>;
-}
 
 class User
   extends Model<UserAtttributes, UserInput>
@@ -31,14 +27,6 @@ class User
   public password!: string;
   public readonly createdAt!: Date;
   public readonly updatedAt!: Date;
-
-  public parseToJson(): any {
-    return {
-      name: this.name,
-      email: this.email,
-      id: this.id,
-    };
-  }
 
   public async comparePasswords(candidatePassword: string): Promise<boolean> {
     return await bcrypt.compare(candidatePassword, this.password);

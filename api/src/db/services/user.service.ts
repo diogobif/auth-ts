@@ -1,5 +1,5 @@
 import { v4 as uuid } from "uuid";
-import User, { UserOutput } from "../models/user.model";
+import User from "../models/user.model";
 import bcrypt from "bcrypt";
 import config from "config";
 import { createUser, findUserByEmail } from "../dal/user.dal";
@@ -16,15 +16,13 @@ async function encriptPassword(password: string): Promise<string> {
 
 export async function create(
   payload: CreateUserDto
-): Promise<ServiceResponse<UserOutput>> {
+): Promise<ServiceResponse<User>> {
   try {
-    const userWithSameEmail: UserOutput | null = await findUserByEmail(
-      payload.email
-    );
+    const userWithSameEmail: User | null = await findUserByEmail(payload.email);
     if (!userWithSameEmail) {
       payload.password = await encriptPassword(payload.password);
 
-      const newUser: UserOutput | undefined = await createUser({
+      const newUser: User | undefined = await createUser({
         ...payload,
         id: uuid(),
       });

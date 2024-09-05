@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { create, login } from "../../db/services/user.service";
-import { UserOutput } from "../../db/models/user.model";
+import User from "../../db/models/user.model";
 import { CreateUserDto, LoginDto } from "../dto";
 import { RestResponseCodesEnum, ServiceResponse } from "../../db/types";
 import lodash from "lodash";
@@ -9,7 +9,7 @@ import { deleteSession } from "../../db/services/session.service";
 
 export async function createUserHandler(req: Request, res: Response) {
   try {
-    const serviceResponse: ServiceResponse<UserOutput> = await create(
+    const serviceResponse: ServiceResponse<User> = await create(
       req.body as CreateUserDto
     );
 
@@ -18,7 +18,10 @@ export async function createUserHandler(req: Request, res: Response) {
       serviceResponse.response
     ) {
       return res.send({
-        result: lodash.omit(serviceResponse.response.parseToJson(), ["id"]),
+        result: lodash.omit(serviceResponse.response.dataValues, [
+          "id",
+          "password",
+        ]),
       });
     }
 
