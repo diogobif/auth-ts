@@ -28,7 +28,7 @@ export async function create(payload: User): Promise<Session | undefined> {
     return newSession;
   } catch (error: any) {
     log.error(error);
-    return undefined;
+    throw new Error(error);
   }
 }
 
@@ -37,7 +37,7 @@ export async function deleteSessionByUserId(userId: string): Promise<void> {
     Session.destroy({ where: { user_id: userId } });
   } catch (error: any) {
     log.error(error);
-    return undefined;
+    throw new Error(error);
   }
 }
 
@@ -50,8 +50,9 @@ export async function getSessionByToken(
       return session;
     }
     return undefined;
-  } catch (error) {
+  } catch (error: any) {
     log.error(error);
+    throw new Error(error);
   }
 }
 
@@ -67,7 +68,8 @@ export async function getSessionByRefreshToken(
       return session;
     }
     return undefined;
-  } catch (error) {
+  } catch (error: any) {
     log.error(error);
+    throw new Error(error);
   }
 }

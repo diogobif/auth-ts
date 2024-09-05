@@ -18,9 +18,9 @@ export async function createSession(
     const newSession: Session | undefined = await create(payload);
 
     return newSession;
-  } catch (error) {
+  } catch (error: any) {
     log.error(error);
-    return undefined;
+    throw new Error(error);
   }
 }
 
@@ -28,9 +28,9 @@ export async function deleteSession(payload: string): Promise<boolean> {
   try {
     await deleteSessionByUserId(payload);
     return true;
-  } catch (error) {
+  } catch (error: any) {
     log.error(error);
-    return false;
+    throw new Error(error);
   }
 }
 
@@ -63,8 +63,8 @@ export async function refreshToken(
         return session;
       }
     }
-  } catch (error) {
+  } catch (error: any) {
     log.error(error);
-    return undefined;
+    throw new Error(error);
   }
 }

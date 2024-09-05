@@ -1,4 +1,3 @@
-import { CreateUserDto } from "../../api/dto";
 import log from "../../logger";
 import User, { UserInput, UserOutput } from "../models/user.model";
 
@@ -10,6 +9,7 @@ export const createUser = async (
     return newUser;
   } catch (error: any) {
     console.error(error);
+    throw new Error(error);
   }
 };
 
@@ -23,8 +23,8 @@ export async function findUserByEmail(email: string): Promise<User | null> {
 
     return queryResult;
   } catch (error: any) {
-    log.error(error);
-    return null;
+    console.error(error);
+    throw new Error(error);
   }
 }
 
@@ -39,6 +39,6 @@ export async function findUserById(id: string): Promise<User | null> {
     return queryResult;
   } catch (error: any) {
     log.error(error);
-    return null;
+    throw new Error(error);
   }
 }
