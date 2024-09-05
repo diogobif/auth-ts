@@ -1,7 +1,7 @@
 import log from "../../logger";
 import { sign } from "../../utils/jwt.utils";
 import { ConfigParamsEnum } from "../../utils/types";
-import Session, { SessionInput, SessionOutput } from "../models/session.model";
+import Session, { SessionInput } from "../models/session.model";
 import User from "../models/user.model";
 import config from "config";
 

@@ -1,5 +1,6 @@
 import { Sequelize, Optional, Model, DataTypes } from "sequelize";
 import { SequelizeConnection } from "../sequelizeConnection";
+import User from "./user.model";
 
 export interface SessionAttributes {
   user_id: string;
@@ -14,7 +15,6 @@ const sequelizeConnection: Sequelize | undefined =
 
 export interface SessionInput
   extends Optional<SessionAttributes, "createdAt"> {}
-export interface SessionOutput extends Required<SessionAttributes> {}
 
 class Session
   extends Model<SessionAttributes, SessionInput>
@@ -32,6 +32,10 @@ Session.init(
       type: DataTypes.STRING,
       allowNull: false,
       primaryKey: true,
+      references: {
+        model: User,
+        key: "id",
+      },
     },
     token: {
       type: DataTypes.STRING,

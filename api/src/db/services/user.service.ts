@@ -6,7 +6,7 @@ import { createUser, findUserByEmail } from "../dal/user.dal";
 import { CreateUserDto, LoginDto } from "../../api/dto";
 import { RestResponseCodesEnum, ServiceResponse } from "../types";
 import log from "../../logger";
-import Session, { SessionOutput } from "../models/session.model";
+import Session from "../models/session.model";
 import { createSession } from "./session.service";
 
 async function encriptPassword(password: string): Promise<string> {
